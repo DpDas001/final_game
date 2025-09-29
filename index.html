@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐴 The Lloyds Banking Group -Desk Derby:  🐴</title>
+    <style>
+        /* Lloyds Constellation Design System */
+        :root {
+            /* Lloyds Brand Colors */
+            --lloyds-green: #006A4D;
+            --lloyds-dark-green: #004D38;
+            --lloyds-light-green: #00A86B;
+            --lloyds-teal: #009FBF;
+            --lloyds-blue: #0077BE;
+            --lloyds-navy: #003B5C;
+            --lloyds-yellow: #FFD32D;
+            --lloyds-orange: #FF6600;
+            --lloyds-red: #D32F2F;
+            
+            /* Neutrals */
+            --lloyds-white: #FFFFFF;
+            --lloyds-grey-50: #F8F9FA;
+            --lloyds-grey-100: #F1F3F4;
+            --lloyds-grey-200: #E8EAED;
+            --lloyds-grey-300: #DADCE0;
+            --lloyds-grey-400: #BDC1C6;
+            --lloyds-grey-500: #9AA0A6;
+            --lloyds-grey-600: #80868B;
+            --lloyds-grey-700: #5F6368;
+            --lloyds-grey-800: #3C4043;
+            --lloyds-grey-900: #202124;
+            
+            /* Typography */
+            --font-primary: 'SourceSansPro', 'Helvetica Neue', Arial, sans-serif;
+            --font-secondary: 'Helvetica Neue', Arial, sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--lloyds-green) 0%, var(--lloyds-teal) 100%);
+            color: var(--lloyds-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+            padding: var(--spacing-xl) 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--lloyds-white);
+            text-shadow: none;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .stat-card {
+            background: var(--lloyds-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--lloyds-grey-200);
+            transition: all 0.3s ease;
+            color: var(--lloyds-grey-800);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--lloyds-light-green);
+        }
+
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--lloyds-green);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-card div:last-child {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--lloyds-grey-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .desk-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .desk {
+            background: var(--lloyds-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            border: 2px solid var(--lloyds-grey-200);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            color: var(--lloyds-grey-800);
+        }
+
+        .desk.available {
+            border-color: var(--lloyds-light-green);
+            background: var(--lloyds-white);
+        }
+
+        .desk.available:hover {
+            border-color: var(--lloyds-green);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .desk.booked {
+            border-color: var(--lloyds-grey-400);
+            background: var(--lloyds-grey-100);
+            color: var(--lloyds-grey-600);
+        }
+
+        .desk:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .desk-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .desk div:last-child {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: var(--spacing-xs);
+        }
+
+        .player-section {
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .player-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--lloyds-white);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .player-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .player-card {
+            background: var(--lloyds-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--lloyds-grey-200);
+            transition: all 0.3s ease;
+            color: var(--lloyds-grey-800);
+            cursor: pointer;
+        }
+
+        .player-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--lloyds-light-green);
+        }
+
+        .player-card.selected {
+            border-color: var(--lloyds-green);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .player-name {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--lloyds-green);
+        }
+
+        .player-stats {
+            font-size: 0.875rem;
+            color: var(--lloyds-grey-600);
+            line-height: 1.4;
+        }
+
+        .quiz-section {
+            background: var(--lloyds-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xxl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--lloyds-grey-200);
+            color: var(--lloyds-grey-800);
+        }
+
+        .quiz-section h2 {
+            color: var(--lloyds-green);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .question {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            color: var(--lloyds-grey-800);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .answer-btn {
+            background: var(--lloyds-grey-50);
+            border: 2px solid var(--lloyds-grey-200);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            color: var(--lloyds-grey-800);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .answer-btn:hover {
+            background: var(--lloyds-grey-100);
+            border-color: var(--lloyds-light-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .answer-btn.correct {
+            background: #E8F5E8;
+            border-color: var(--lloyds-light-green);
+            color: var(--lloyds-green);
+        }
+
+        .answer-btn.incorrect {
+            background: #FFF0F0;
+            border-color: var(--lloyds-red);
+            color: var(--lloyds-red);
+        }
+
+        .leaderboard {
+            background: var(--lloyds-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xxl);
+            margin-bottom: var(--spacing-xxl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--lloyds-grey-200);
+            color: var(--lloyds-grey-800);
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            color: var(--lloyds-green);
+            font-weight: 600;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            background: var(--lloyds-grey-50);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--lloyds-grey-200);
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: var(--lloyds-grey-100);
+            border-color: var(--lloyds-light-green);
+        }
+
+        .leaderboard-item:first-child {
+            background: linear-gradient(135deg, #FFD32D22, #FFD32D11);
+            border-color: var(--lloyds-yellow);
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--lloyds-green);
+            min-width: 40px;
+        }
+
+        .leaderboard-item:first-child .rank {
+            color: #B8860B;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xxl);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--lloyds-green);
+            color: var(--lloyds-white);
+            border: 2px solid var(--lloyds-green);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--font-primary);
+        }
+
+        .btn:hover {
+            background: var(--lloyds-dark-green);
+            border-color: var(--lloyds-dark-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            color: var(--lloyds-green);
+            border-color: var(--lloyds-green);
+        }
+
+        .btn.secondary:hover {
+            background: var(--lloyds-green);
+            color: var(--lloyds-white);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--lloyds-white);
+            margin: 5% auto;
+            padding: var(--spacing-xxl);
+            border-radius: var(--radius-xl);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--lloyds-grey-200);
+            color: var(--lloyds-grey-800);
+        }
+
+        .modal-content h2 {
+            color: var(--lloyds-green);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .close {
+            color: var(--lloyds-grey-400);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--lloyds-green);
+        }
+
+        .avatar-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .avatar-option {
+            background: var(--lloyds-grey-50);
+            border: 2px solid var(--lloyds-grey-200);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .avatar-option:hover,
+        .avatar-option.selected {
+            border-color: var(--lloyds-green);
+            background: #E8F5E8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .trophy-section {
+            text-align: center;
+            margin: var(--spacing-xxl) 0;
+            background: var(--lloyds-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xxl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--lloyds-grey-200);
+            color: var(--lloyds-grey-800);
+        }
+
+        .trophy-section h3 {
+            color: var(--lloyds-green);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 600;
+        }
+
+        .trophy {
+            font-size: 3rem;
+            margin: var(--spacing-lg);
+            color: var(--lloyds-yellow);
+        }
+
+        #weeklyChampions {
+            color: var(--lloyds-grey-600);
+            font-weight: 500;
+        }
+
+        .sound-effects {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .desk-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--spacing-md);
+            }
+            
+            .answers {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-panel {
+                gap: var(--spacing-sm);
+            }
+            
+            .btn {
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: 0.75rem;
+            }
+            
+            .stat-card {
+                padding: var(--spacing-lg);
+            }
+            
+            .stat-number {
+                font-size: 1.875rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: var(--spacing-xl);
+            }
+            
+            .player-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .desk-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .avatar-selection {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Accessibility improvements */
+        .btn:focus,
+        .desk:focus,
+        .answer-btn:focus,
+        .player-card:focus {
+            outline: 2px solid var(--lloyds-blue);
+            outline-offset: 2px;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Success states */
+        .success {
+            border-color: var(--lloyds-light-green) !important;
+            background-color: #E8F5E8 !important;
+        }
+
+        /* Error states */
+        .error {
+            border-color: var(--lloyds-red) !important;
+            background-color: #FFF0F0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: center; gap: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+                <div style="width: 60px; height: 60px; background: var(--lloyds-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">L</div>
+                <div>
+                    <h1>Desk Derby: The Lloyds Values Showdown!</h1>
+                    <p>Race to book your desk by mastering Lloyds Banking Group values!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="dayCounter">1</div>
+                <div>Day of Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="availableDesks">5</div>
+                <div>Desks Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalPlayers">10</div>
+                <div>Active Players</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="questionsAnswered">0</div>
+                <div>Questions Answered</div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <button class="btn" onclick="startNewDay()">🌅 Start New Day</button>
+            <button class="btn" onclick="showLeaderboard()">🏆 View Leaderboard</button>
+            <button class="btn" onclick="openAvatarModal()">🎭 Choose Avatar</button>
+            <button class="btn" onclick="openReleaseModal()">🔓 Release Desk</button>
+            <button class="btn" onclick="loadJSONFile()">📂 Load JSON</button>
+            <button class="btn" onclick="downloadBookingData()">💾 Save JSON</button>
+            <button class="btn" onclick="resetGame()">🔄 Reset Game</button>
+        </div>
+
+        <!-- Desk Grid -->
+        <div class="desk-grid" id="deskGrid">
+            <!-- Desks will be generated here -->
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section" id="quizSection" style="display: none;">
+            <h2>🧠 Lloyds Values Challenge</h2>
+            <div class="question" id="questionText"></div>
+            <div class="answers" id="answersContainer"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="closeQuiz()">Cancel Booking</button>
+            </div>
+        </div>
+
+        <!-- Current Player Section -->
+        <div class="player-section">
+            <h2>🎮 Current Player</h2>
+            <div class="player-card">
+                <div class="player-name" id="currentPlayerName">Select a player to start</div>
+                <div class="player-stats" id="currentPlayerStats">
+                    Desks Booked: 0/7 | Win Rate: 0% | Weekly Title: New Rider
+                </div>
+            </div>
+        </div>
+
+        <!-- Players Grid -->
+        <div class="player-section">
+            <h2>👥 All Players</h2>
+            <div class="player-grid" id="playersGrid">
+                <!-- Players will be generated here -->
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard" id="leaderboard">
+            <h2>🏆 Daily Leaderboard</h2>
+            <div id="leaderboardContent">
+                <!-- Leaderboard items will be generated here -->
+            </div>
+        </div>
+
+        <!-- Trophy Section -->
+        <div class="trophy-section">
+            <div class="trophy">🏆</div>
+            <h3>Weekly Champions Hall of Fame</h3>
+            <div id="weeklyChampions">No champions yet - be the first!</div>
+        </div>
+    </div>
+
+    <!-- Avatar Selection Modal -->
+    <div id="avatarModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAvatarModal()">&times;</span>
+            <h2>🎭 Choose Your Racing Persona</h2>
+            <div class="avatar-selection" id="avatarSelection">
+                <!-- Avatar options will be generated here -->
+            </div>
+            <button class="btn" onclick="saveAvatar()">Save Avatar</button>
+        </div>
+    </div>
+
+    <!-- Release Desk Modal -->
+    <div id="releaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReleaseModal()">&times;</span>
+            <h2>🔓 Release a Desk</h2>
+            <p>Select a booked desk to release:</p>
+            <div class="avatar-selection" id="releaseSelection">
+                <!-- Release options will be generated here -->
+            </div>
+            <button class="btn" onclick="confirmRelease()">Release Selected Desk</button>
+        </div>
+    </div>
+
+    <!-- Hidden file input for JSON loading -->
+    <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="handleJSONFileLoad(event)">
+
+    <!-- Sound Effects -->
+    <div class="sound-effects">
+        <audio id="successSound" preload="auto">
+            <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEbBSuqnZCN1jC4hZSM1zE3hjOE0UZTTS5zp+jquVUUCkef4PKjXx0CIZzX8NGLPAoUXrTp66hVFApGn+DyvmEbBj2b1fDNiT4JNYO18Nud" type="audio/wav">
+        </audio>
+        <audio id="failSound" preload="auto">
+            <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm1" type="audio/wav">
+        </audio>
+    </div>
+
+    <script>
+        // Game State - Now loaded from JSON file
+        let gameState = {
+            currentDay: 1,
+            currentPlayer: null,
+            players: [],
+            desks: [],
+            questions: [],
+            currentQuestion: null,
+            weeklyChampions: [],
+            bookingHistory: [],
+            gameSettings: {
+                totalDesks: 5,
+                daysPerWeek: 7,
+                questionsPerAttempt: 1,
+                maxBookingsPerPlayer: 7
+            },
+            avatars: [
+                "🐴 Sir Gallops-a-Lot",
+                "🦄 Desk-a-saurus Rex", 
+                "🏇 The Booking Bandit",
+                "🎠 Captain Carousel",
+                "🐎 Mustang Mike",
+                "🦓 Zebra Zoe",
+                "🐴 Thunder Bolt",
+                "🏇 Lightning Lucy",
+                "🎭 Derby Dan",
+                "🏆 Victory Val"
+            ]
+        };
+
+        // JSON file path (relative to HTML file)
+        const JSON_FILE_PATH = './desk-derby-data.json';
+
+        // Lloyds Values Questions
+        const lloydQuestions = [
+            {
+                question: "Which Lloyds value encourages us to challenge the status quo and seek better ways of working?",
+                answers: ["Integrity", "Innovation", "Collaboration", "Ownership"],
+                correct: 1,
+                theme: "Embracing Innovation"
+            },
+            {
+                question: "What does 'Putting Customers First' mean at Lloyds?",
+                answers: ["Making profits first", "Understanding customer needs", "Selling more products", "Reducing costs"],
+                correct: 1,
+                theme: "Putting Customers First"
+            },
+            {
+                question: "Which value emphasizes being honest and transparent in all our dealings?",
+                answers: ["Innovation", "Collaboration", "Integrity", "Ownership"],
+                correct: 2,
+                theme: "Acting with Integrity"
+            },
+            {
+                question: "Working Collaboratively means:",
+                answers: ["Working alone efficiently", "Sharing knowledge and supporting each other", "Competing with colleagues", "Following orders strictly"],
+                correct: 1,
+                theme: "Working Collaboratively"
+            },
+            {
+                question: "Taking Ownership involves:",
+                answers: ["Blaming others for mistakes", "Being accountable for our actions", "Avoiding difficult decisions", "Delegating all responsibilities"],
+                correct: 1,
+                theme: "Taking Ownership"
+            },
+            {
+                question: "How do we Put Customers First in our daily work?",
+                answers: ["By focusing on internal processes", "By listening to and understanding customer needs", "By prioritizing shareholder profits", "By minimizing customer interactions"],
+                correct: 1,
+                theme: "Putting Customers First"
+            },
+            {
+                question: "Innovation at Lloyds means:",
+                answers: ["Resisting change", "Embracing new ideas and technologies", "Maintaining traditional methods", "Avoiding risks"],
+                correct: 1,
+                theme: "Embracing Innovation"
+            },
+            {
+                question: "Which behavior demonstrates Acting with Integrity?",
+                answers: ["Cutting corners to meet deadlines", "Being honest even when it's difficult", "Hiding mistakes", "Taking credit for others' work"],
+                correct: 1,
+                theme: "Acting with Integrity"
+            },
+            {
+                question: "Collaboration is enhanced when we:",
+                answers: ["Work in isolation", "Share information and help colleagues", "Compete against team members", "Keep knowledge to ourselves"],
+                correct: 1,
+                theme: "Working Collaboratively"
+            },
+            {
+                question: "Taking Ownership means we should:",
+                answers: ["Blame external factors", "Take responsibility for our decisions", "Avoid challenging situations", "Wait for others to act"],
+                correct: 1,
+                theme: "Taking Ownership"
+            }
+        ];
+
+        // Initialize Game
+        function initGame() {
+            gameState.questions = lloydQuestions;
+            generatePlayers();
+            generateDesks();
+            updateDisplay();
+        }
+
+        // Load JSON Data from file (fallback to default if file not found)
+        async function loadJSONData() {
+            try {
+                const response = await fetch(JSON_FILE_PATH);
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    
+                    // Store the loaded structure for future use
+                    localStorage.setItem('deskDerbyStructure', JSON.stringify(jsonData));
+                    
+                    // Check if it's the new date-based structure
+                    if (jsonData.dailyData && jsonData.dateIndex) {
+                        // New structure - load latest date data
+                        const latestDate = jsonData.dateIndex.latestDate;
+                        const availableDates = jsonData.dateIndex.availableDates || [];
+                        
+                        if (latestDate && jsonData.dailyData[latestDate]) {
+                            const latestDayData = jsonData.dailyData[latestDate];
+                            gameState.currentDay = latestDayData.day || 1;
+                            gameState.players = latestDayData.players || [];
+                            gameState.desks = latestDayData.desks || [];
+                        }
+                        
+                        gameState.bookingHistory = jsonData.bookingHistory || [];
+                        gameState.weeklyChampions = jsonData.weeklyChampions || [];
+                        gameState.gameSettings = jsonData.gameSettings || gameState.gameSettings;
+                        
+                        console.log(`✅ Date-based JSON loaded - Latest: ${latestDate}, Total dates: ${availableDates.length}`);
+                    } else {
+                        // Legacy structure - convert to new format
+                        gameState.currentDay = jsonData.gameInfo?.currentDay || jsonData.currentDay || 1;
+                        gameState.players = jsonData.players || [];
+                        gameState.desks = jsonData.desks || [];
+                        gameState.bookingHistory = jsonData.bookingHistory || [];
+                        gameState.weeklyChampions = jsonData.weeklyChampions || [];
+                        gameState.gameSettings = jsonData.gameSettings || gameState.gameSettings;
+                        
+                        console.log('✅ Legacy JSON data loaded (will be converted on save)');
+                    }
+                    
+                    return true;
+                } else {
+                    throw new Error('JSON file not found');
+                }
+            } catch (error) {
+                console.log('⚠️ Could not load JSON file, using default data:', error.message);
+                generateDefaultData();
+                return false;
+            }
+        }
+
+        // Generate default data when JSON file is not available
+        function generateDefaultData() {
+            const playerNames = [
+                "Andy", "Piyush", "Tahera", "David", 
+                "Hamza", "Prasad", "Durga", "Jeeten", "Garth"
+            ];
+            
+            gameState.players = playerNames.map((name, index) => ({
+                id: index,
+                name: name,
+                avatar: gameState.avatars[index % gameState.avatars.length],
+                desksBooked: 0,
+                questionsAnswered: 0,
+                correctAnswers: 0,
+                weeklyBookings: Array(7).fill(false),
+                currentStreak: 0,
+                title: "New Rider"
+            }));
+            
+            gameState.desks = Array(5).fill(null).map((_, index) => ({
+                id: index,
+                available: true,
+                bookedBy: null,
+                bookedDay: null,
+                bookingId: null
+            }));
+        }
+
+        // Update Display
+        function updateDisplay() {
+            updateStats();
+            updateDesks();
+            updatePlayers();
+            updateLeaderboard();
+        }
+
+        // Update Stats
+        function updateStats() {
+            document.getElementById('dayCounter').textContent = gameState.currentDay;
+            document.getElementById('availableDesks').textContent = 
+                gameState.desks.filter(desk => desk.available).length;
+            document.getElementById('questionsAnswered').textContent = 
+                gameState.players.reduce((sum, player) => sum + player.questionsAnswered, 0);
+        }
+
+        // Update Desks Display
+        function updateDesks() {
+            const deskGrid = document.getElementById('deskGrid');
+            deskGrid.innerHTML = '';
+            
+            gameState.desks.forEach((desk, index) => {
+                const deskElement = document.createElement('div');
+                deskElement.className = `desk ${desk.available ? 'available' : 'booked'}`;
+                deskElement.onclick = () => attemptBooking(index);
+                
+                deskElement.innerHTML = `
+                    <div class="desk-icon">${desk.available ? '🪑' : '🔒'}</div>
+                    <div>Desk ${index + 1}</div>
+                    <div>${desk.available ? 'Available' : `Booked by ${desk.bookedBy}`}</div>
+                `;
+                
+                deskGrid.appendChild(deskElement);
+            });
+        }
+
+        // Update Players Display
+        function updatePlayers() {
+            const playersGrid = document.getElementById('playersGrid');
+            playersGrid.innerHTML = '';
+            
+            gameState.players.forEach(player => {
+                const playerElement = document.createElement('div');
+                playerElement.className = 'player-card';
+                playerElement.onclick = () => selectPlayer(player);
+                
+                const winRate = player.questionsAnswered > 0 ? 
+                    Math.round((player.correctAnswers / player.questionsAnswered) * 100) : 0;
+                
+                playerElement.innerHTML = `
+                    <div class="player-name">${player.avatar}</div>
+                    <div class="player-name">${player.name}</div>
+                    <div class="player-stats">
+                        Desks: ${player.desksBooked}/7 | Win Rate: ${winRate}% | ${player.title}
+                    </div>
+                `;
+                
+                if (gameState.currentPlayer && gameState.currentPlayer.id === player.id) {
+                    playerElement.classList.add('selected');
+                }
+                
+                playersGrid.appendChild(playerElement);
+            });
+        }
+
+        // Select Player
+        function selectPlayer(player) {
+            gameState.currentPlayer = player;
+            document.getElementById('currentPlayerName').textContent = 
+                `${player.avatar} - ${player.name}`;
+            
+            const winRate = player.questionsAnswered > 0 ? 
+                Math.round((player.correctAnswers / player.questionsAnswered) * 100) : 0;
+            
+            document.getElementById('currentPlayerStats').textContent = 
+                `Desks Booked: ${player.desksBooked}/7 | Win Rate: ${winRate}% | Weekly Title: ${player.title}`;
+            
+            updatePlayers();
+        }
+
+        // Attempt Booking
+        function attemptBooking(deskIndex) {
+            if (!gameState.currentPlayer) {
+                alert('Please select a player first!');
+                return;
+            }
+            
+            if (!gameState.desks[deskIndex].available) {
+                alert('This desk is already booked!');
+                return;
+            }
+            
+            if (gameState.desks.filter(desk => desk.available).length === 0) {
+                alert('All desks are booked for today!');
+                return;
+            }
+            
+            // Show quiz
+            showQuiz(deskIndex);
+        }
+
+        // Show Quiz
+        function showQuiz(deskIndex) {
+            const randomQuestion = gameState.questions[Math.floor(Math.random() * gameState.questions.length)];
+            gameState.currentQuestion = { ...randomQuestion, deskIndex };
+            
+            document.getElementById('questionText').textContent = randomQuestion.question;
+            
+            const answersContainer = document.getElementById('answersContainer');
+            answersContainer.innerHTML = '';
+            
+            randomQuestion.answers.forEach((answer, index) => {
+                const answerBtn = document.createElement('button');
+                answerBtn.className = 'answer-btn';
+                answerBtn.textContent = `${String.fromCharCode(65 + index)}) ${answer}`;
+                answerBtn.onclick = () => answerQuestion(index);
+                answersContainer.appendChild(answerBtn);
+            });
+            
+            document.getElementById('quizSection').style.display = 'block';
+        }
+
+        // Answer Question
+        function answerQuestion(answerIndex) {
+            const isCorrect = answerIndex === gameState.currentQuestion.correct;
+            const player = gameState.currentPlayer;
+            
+            player.questionsAnswered++;
+            
+            // Update answer buttons
+            const answerBtns = document.querySelectorAll('.answer-btn');
+            answerBtns.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === gameState.currentQuestion.correct) {
+                    btn.classList.add('correct');
+                } else if (index === answerIndex && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            setTimeout(() => {
+                if (isCorrect) {
+                    // Book the desk
+                    player.correctAnswers++;
+                    player.desksBooked++;
+                    player.weeklyBookings[gameState.currentDay - 1] = true;
+                    
+                    const desk = gameState.desks[gameState.currentQuestion.deskIndex];
+                    desk.available = false;
+                    desk.bookedBy = player.name;
+                    desk.bookedDay = gameState.currentDay;
+                    
+                    // Store booking details in JSON format
+                    const bookingDetails = {
+                        id: `booking_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                        username: player.name,
+                        avatar: player.avatar,
+                        date: new Date().toISOString(),
+                        gameDay: gameState.currentDay,
+                        seatNumber: gameState.currentQuestion.deskIndex + 1,
+                        question: gameState.currentQuestion.question,
+                        selectedAnswer: gameState.currentQuestion.answers[answerIndex],
+                        correctAnswer: gameState.currentQuestion.answers[gameState.currentQuestion.correct],
+                        isCorrect: true,
+                        theme: gameState.currentQuestion.theme,
+                        bookingTime: new Date().toLocaleString(),
+                        playerStats: {
+                            totalDesksBooked: player.desksBooked,
+                            totalQuestionsAnswered: player.questionsAnswered,
+                            totalCorrectAnswers: player.correctAnswers,
+                            winRate: Math.round((player.correctAnswers / player.questionsAnswered) * 100)
+                        }
+                    };
+                    
+                    gameState.bookingHistory.push(bookingDetails);
+                    desk.bookingId = bookingDetails.id;
+                    
+                    // Auto-save to localStorage as backup
+                    autoSaveToLocalStorage();
+                    
+                    // Play success sound
+                    playSound('success');
+                    
+                    // Update player title
+                    updatePlayerTitle(player);
+                    
+                    alert(`🎉 Congratulations! You've successfully booked Desk ${gameState.currentQuestion.deskIndex + 1}!`);
+                } else {
+                    // Store failed attempt
+                    const failedAttempt = {
+                        id: `attempt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                        username: player.name,
+                        avatar: player.avatar,
+                        date: new Date().toISOString(),
+                        gameDay: gameState.currentDay,
+                        attemptedSeat: gameState.currentQuestion.deskIndex + 1,
+                        question: gameState.currentQuestion.question,
+                        selectedAnswer: gameState.currentQuestion.answers[answerIndex],
+                        correctAnswer: gameState.currentQuestion.answers[gameState.currentQuestion.correct],
+                        isCorrect: false,
+                        theme: gameState.currentQuestion.theme,
+                        attemptTime: new Date().toLocaleString()
+                    };
+                    
+                    gameState.bookingHistory.push(failedAttempt);
+                    autoSaveToLocalStorage();
+                    
+                    // Play fail sound
+                    playSound('fail');
+                    alert(`❌ Sorry, that's incorrect. The correct answer was: ${gameState.currentQuestion.answers[gameState.currentQuestion.correct]}`);
+                }
+                
+                closeQuiz();
+                updateDisplay();
+            }, 2000);
+        }
+
+        // Update Player Title
+        function updatePlayerTitle(player) {
+            const bookingRate = (player.desksBooked / 7) * 100;
+            
+            if (bookingRate >= 80) player.title = "🏆 Desk Dominator";
+            else if (bookingRate >= 60) player.title = "🥈 Steady Booker";
+            else if (bookingRate >= 40) player.title = "🥉 Reliable Rider";
+            else if (bookingRate >= 20) player.title = "🐌 Slow Starter";
+            else player.title = "😴 Desk Dreamer";
+        }
+
+        // Close Quiz
+        function closeQuiz() {
+            document.getElementById('quizSection').style.display = 'none';
+            gameState.currentQuestion = null;
+        }
+
+        // Start New Day
+        function startNewDay() {
+            if (gameState.currentDay >= 7) {
+                // End of week - show champions
+                endWeek();
+                return;
+            }
+            
+            gameState.currentDay++;
+            
+            // Reset desks
+            gameState.desks.forEach(desk => {
+                desk.available = true;
+                desk.bookedBy = null;
+                desk.bookedDay = null;
+            });
+            
+            updateDisplay();
+            alert(`🌅 Day ${gameState.currentDay} has begun! All desks are now available for booking.`);
+        }
+
+        // End Week
+        function endWeek() {
+            // Calculate final titles and champions
+            gameState.players.forEach(updatePlayerTitle);
+            
+            // Sort players by booking rate
+            const sortedPlayers = [...gameState.players].sort((a, b) => b.desksBooked - a.desksBooked);
+            
+            // Add champion to hall of fame
+            if (sortedPlayers[0].desksBooked > 0) {
+                gameState.weeklyChampions.push({
+                    name: sortedPlayers[0].name,
+                    avatar: sortedPlayers[0].avatar,
+                    desksBooked: sortedPlayers[0].desksBooked,
+                    week: Math.floor(gameState.weeklyChampions.length / 1) + 1
+                });
+            }
+            
+            // Show final results
+            let resultsMessage = "🏁 Week Complete! Final Results:\n\n";
+            sortedPlayers.forEach((player, index) => {
+                resultsMessage += `${index + 1}. ${player.name} - ${player.desksBooked}/7 desks (${player.title})\n`;
+            });
+            
+            alert(resultsMessage);
+            
+            // Reset for new week
+            if (confirm("Start a new week?")) {
+                resetWeek();
+            }
+        }
+
+        // Reset Week
+        function resetWeek() {
+            gameState.currentDay = 1;
+            gameState.players.forEach(player => {
+                player.desksBooked = 0;
+                player.weeklyBookings = Array(7).fill(false);
+                player.title = "New Rider";
+            });
+            generateDesks();
+            updateDisplay();
+        }
+
+        // Reset Game
+        function resetGame() {
+            if (confirm("Are you sure you want to reset the entire game?")) {
+                gameState.currentDay = 1;
+                gameState.currentPlayer = null;
+                gameState.weeklyChampions = [];
+                generatePlayers();
+                generateDesks();
+                updateDisplay();
+            }
+        }
+
+        // Update Leaderboard
+        function updateLeaderboard() {
+            const sortedPlayers = [...gameState.players].sort((a, b) => {
+                if (b.desksBooked !== a.desksBooked) return b.desksBooked - a.desksBooked;
+                return b.correctAnswers - a.correctAnswers;
+            });
+            
+            const leaderboardContent = document.getElementById('leaderboardContent');
+            leaderboardContent.innerHTML = '';
+            
+            sortedPlayers.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                
+                const winRate = player.questionsAnswered > 0 ? 
+                    Math.round((player.correctAnswers / player.questionsAnswered) * 100) : 0;
+                
+                item.innerHTML = `
+                    <span class="rank">#${index + 1}</span>
+                    <span>${player.avatar} ${player.name}</span>
+                    <span>${player.desksBooked} desks | ${winRate}% win rate</span>
+                `;
+                
+                leaderboardContent.appendChild(item);
+            });
+            
+            // Update weekly champions
+            const championsDiv = document.getElementById('weeklyChampions');
+            if (gameState.weeklyChampions.length > 0) {
+                championsDiv.innerHTML = gameState.weeklyChampions.map(champion => 
+                    `Week ${champion.week}: ${champion.avatar} ${champion.name} (${champion.desksBooked} desks)`
+                ).join('<br>');
+            }
+        }
+
+        // Show/Hide Leaderboard
+        function showLeaderboard() {
+            const leaderboard = document.getElementById('leaderboard');
+            leaderboard.style.display = leaderboard.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Avatar Modal Functions
+        function openAvatarModal() {
+            if (!gameState.currentPlayer) {
+                alert('Please select a player first!');
+                return;
+            }
+            
+            const avatarSelection = document.getElementById('avatarSelection');
+            avatarSelection.innerHTML = '';
+            
+            gameState.avatars.forEach(avatar => {
+                const option = document.createElement('div');
+                option.className = 'avatar-option';
+                option.textContent = avatar;
+                option.onclick = () => selectAvatar(avatar, option);
+                
+                if (gameState.currentPlayer.avatar === avatar) {
+                    option.classList.add('selected');
+                }
+                
+                avatarSelection.appendChild(option);
+            });
+            
+            document.getElementById('avatarModal').style.display = 'block';
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatarModal').style.display = 'none';
+        }
+
+        let selectedAvatar = null;
+
+        function selectAvatar(avatar, element) {
+            document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAvatar = avatar;
+        }
+
+        function saveAvatar() {
+            if (selectedAvatar && gameState.currentPlayer) {
+                gameState.currentPlayer.avatar = selectedAvatar;
+                updatePlayers();
+                selectPlayer(gameState.currentPlayer); // Refresh current player display
+                closeAvatarModal();
+                alert(`Avatar updated to ${selectedAvatar}!`);
+            }
+        }
+
+        // Play Sound Effects
+        function playSound(type) {
+            // Simple sound effect simulation
+            if (type === 'success') {
+                console.log('🎉 Success sound!');
+                // You can implement actual sound playback here
+            } else if (type === 'fail') {
+                console.log('❌ Fail sound!');
+                // You can implement actual sound playback here
+            }
+        }
+
+        // Save Game Data to JSON format (for download)
+        function saveGameDataToJSON() {
+            const currentDate = new Date().toISOString().split('T')[0];
+            const currentDateTime = new Date().toISOString();
+            
+            // Load existing structure from localStorage or create new
+            const existingStructure = loadExistingJSONStructure();
+            
+            // Update daily data for current date
+            if (!existingStructure.dailyData) {
+                existingStructure.dailyData = {};
+            }
+            
+            existingStructure.dailyData[currentDate] = {
+                day: gameState.currentDay,
+                players: gameState.players,
+                desks: gameState.desks,
+                timestamp: currentDateTime
+            };
+            
+            // Update date index
+            if (!existingStructure.dateIndex) {
+                existingStructure.dateIndex = {
+                    availableDates: []
+                };
+            }
+            
+            existingStructure.dateIndex.latestDate = currentDate;
+            if (!existingStructure.dateIndex.availableDates.includes(currentDate)) {
+                existingStructure.dateIndex.availableDates.push(currentDate);
+                existingStructure.dateIndex.availableDates.sort();
+            }
+            
+            // Update game info
+            existingStructure.gameInfo = {
+                currentDay: gameState.currentDay,
+                totalPlayers: gameState.players.length,
+                gameStartDate: existingStructure.gameInfo?.gameStartDate || currentDate,
+                lastUpdated: currentDateTime,
+                dataVersion: "2.0",
+                totalDaysTracked: existingStructure.dateIndex.availableDates.length
+            };
+            
+            // Update other data
+            existingStructure.bookingHistory = gameState.bookingHistory;
+            existingStructure.weeklyChampions = gameState.weeklyChampions;
+            existingStructure.gameSettings = gameState.gameSettings;
+            
+            return JSON.stringify(existingStructure, null, 2);
+        }
+        
+        // Load existing JSON structure from localStorage or create new one
+        function loadExistingJSONStructure() {
+            try {
+                const existing = localStorage.getItem('deskDerbyStructure');
+                if (existing) {
+                    const parsed = JSON.parse(existing);
+                    // Ensure it has the required structure
+                    if (parsed.dailyData || parsed.dateIndex) {
+                        return parsed;
+                    }
+                }
+            } catch (error) {
+                console.log('Error loading existing structure:', error);
+            }
+            
+            // Return default structure
+            return {
+                gameInfo: {
+                    dataVersion: "2.0",
+                    totalDaysTracked: 0
+                },
+                dailyData: {},
+                bookingHistory: gameState.bookingHistory || [],
+                weeklyChampions: gameState.weeklyChampions || [],
+                gameSettings: gameState.gameSettings,
+                dateIndex: {
+                    availableDates: [],
+                    latestDate: null
+                }
+            };
+        }
+
+        // Load JSON File via file input
+        function loadJSONFile() {
+            document.getElementById('jsonFileInput').click();
+        }
+
+        // Handle JSON file loading
+        function handleJSONFileLoad(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const jsonData = JSON.parse(e.target.result);
+                    
+                    // Store the loaded structure
+                    localStorage.setItem('deskDerbyStructure', JSON.stringify(jsonData));
+                    
+                    // Check if it's the new date-based structure
+                    if (jsonData.dailyData && jsonData.dateIndex) {
+                        // New structure - show date selection or load latest
+                        const availableDates = jsonData.dateIndex.availableDates || [];
+                        const latestDate = jsonData.dateIndex.latestDate;
+                        
+                        if (availableDates.length > 1) {
+                            // Multiple dates available - ask user which to load
+                            const dateChoice = confirm(`Multiple dates found (${availableDates.length} days).\n\nClick OK to load latest date (${latestDate})\nClick Cancel to see all available dates`);
+                            
+                            if (!dateChoice) {
+                                alert(`Available dates:\n${availableDates.join('\n')}\n\nLoading latest: ${latestDate}`);
+                            }
+                        }
+                        
+                        // Load the latest date data
+                        if (latestDate && jsonData.dailyData[latestDate]) {
+                            const latestDayData = jsonData.dailyData[latestDate];
+                            gameState.currentDay = latestDayData.day || 1;
+                            gameState.players = latestDayData.players || [];
+                            gameState.desks = latestDayData.desks || [];
+                            gameState.bookingHistory = jsonData.bookingHistory || [];
+                            gameState.weeklyChampions = jsonData.weeklyChampions || [];
+                            gameState.gameSettings = jsonData.gameSettings || gameState.gameSettings;
+                            
+                            alert(`✅ Date-based JSON loaded!\n📅 Latest Date: ${latestDate}\n📊 Total Days: ${availableDates.length}`);
+                        } else {
+                            throw new Error('No valid date data found');
+                        }
+                    } else if (jsonData.players && jsonData.desks) {
+                        // Legacy structure
+                        gameState.currentDay = jsonData.gameInfo?.currentDay || jsonData.currentDay || 1;
+                        gameState.players = jsonData.players;
+                        gameState.desks = jsonData.desks;
+                        gameState.bookingHistory = jsonData.bookingHistory || [];
+                        gameState.weeklyChampions = jsonData.weeklyChampions || [];
+                        gameState.gameSettings = jsonData.gameSettings || gameState.gameSettings;
+                        
+                        alert('✅ Legacy JSON loaded (will be converted to date-based format on save)');
+                    } else {
+                        throw new Error('Invalid JSON structure - missing required data');
+                    }
+                    
+                    // Reset current player if not found in loaded data
+                    if (gameState.currentPlayer) {
+                        const playerExists = gameState.players.find(p => p.id === gameState.currentPlayer.id);
+                        if (!playerExists) {
+                            gameState.currentPlayer = null;
+                        }
+                    }
+                    
+                    updateDisplay();
+                } catch (error) {
+                    alert('❌ Error loading JSON file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Download Booking Data as JSON (Save current state)
+        function downloadBookingData() {
+            const jsonData = saveGameDataToJSON();
+            const dataBlob = new Blob([jsonData], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `desk-derby-data.json`;
+            link.click();
+            
+            const currentDate = new Date().toISOString().split('T')[0];
+            const existingStructure = loadExistingJSONStructure();
+            const totalDays = existingStructure.dateIndex?.availableDates?.length || 1;
+            
+            alert(`💾 Game data saved successfully!\n📅 Current Date: ${currentDate}\n📊 Total Days Tracked: ${totalDays}\n\nAll historical data preserved in single file.`);
+        }
+
+        // Save daily data to existing JSON structure
+        function saveDailyDataToJSON() {
+            const currentDate = new Date().toISOString().split('T')[0];
+            const currentDateTime = new Date().toISOString();
+            
+            // Load existing data first
+            const existingData = loadExistingJSONStructure();
+            
+            // Update daily data for current date
+            if (!existingData.dailyData) {
+                existingData.dailyData = {};
+            }
+            
+            existingData.dailyData[currentDate] = {
+                day: gameState.currentDay,
+                players: gameState.players,
+                desks: gameState.desks,
+                timestamp: currentDateTime
+            };
+            
+            // Update date index
+            if (!existingData.dateIndex) {
+                existingData.dateIndex = {
+                    availableDates: []
+                };
+            }
+            
+            existingData.dateIndex.latestDate = currentDate;
+            if (!existingData.dateIndex.availableDates.includes(currentDate)) {
+                existingData.dateIndex.availableDates.push(currentDate);
+                existingData.dateIndex.availableDates.sort();
+            }
+            
+            // Update other data
+            existingData.gameInfo = {
+                currentDay: gameState.currentDay,
+                totalPlayers: gameState.players.length,
+                gameStartDate: existingData.gameInfo?.gameStartDate || currentDate,
+                lastUpdated: currentDateTime,
+                dataVersion: "1.0"
+            };
+            
+            existingData.bookingHistory = gameState.bookingHistory;
+            existingData.weeklyChampions = gameState.weeklyChampions;
+            existingData.gameSettings = gameState.gameSettings;
+            
+            return existingData;
+        }
+        
+        // Load existing JSON structure from localStorage or create new one
+        function loadExistingJSONStructure() {
+            try {
+                const existing = localStorage.getItem('deskDerbyStructure');
+                if (existing) {
+                    return JSON.parse(existing);
+                }
+            } catch (error) {
+                console.log('No existing structure found, creating new one');
+            }
+            
+            // Return default structure
+            return {
+                gameInfo: {},
+                dailyData: {},
+                bookingHistory: [],
+                weeklyChampions: [],
+                gameSettings: gameState.gameSettings,
+                dateIndex: {
+                    availableDates: []
+                }
+            };
+        }
+
+        // Auto-save function to localStorage as backup
+        function autoSaveToLocalStorage() {
+            try {
+                // Save traditional backup
+                const backupData = {
+                    gameState: gameState,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('deskDerbyBackup', JSON.stringify(backupData));
+                
+                // Save date-based structure
+                const currentDate = new Date().toISOString().split('T')[0];
+                const currentDateTime = new Date().toISOString();
+                
+                const existingStructure = loadExistingJSONStructure();
+                
+                // Update daily data
+                if (!existingStructure.dailyData) {
+                    existingStructure.dailyData = {};
+                }
+                
+                existingStructure.dailyData[currentDate] = {
+                    day: gameState.currentDay,
+                    players: gameState.players,
+                    desks: gameState.desks,
+                    timestamp: currentDateTime
+                };
+                
+                // Update date index
+                if (!existingStructure.dateIndex) {
+                    existingStructure.dateIndex = {
+                        availableDates: []
+                    };
+                }
+                
+                existingStructure.dateIndex.latestDate = currentDate;
+                if (!existingStructure.dateIndex.availableDates.includes(currentDate)) {
+                    existingStructure.dateIndex.availableDates.push(currentDate);
+                    existingStructure.dateIndex.availableDates.sort();
+                }
+                
+                // Update other data
+                existingStructure.bookingHistory = gameState.bookingHistory;
+                existingStructure.weeklyChampions = gameState.weeklyChampions;
+                
+                localStorage.setItem('deskDerbyStructure', JSON.stringify(existingStructure));
+                
+            } catch (error) {
+                console.log('Auto-save to localStorage failed:', error);
+            }
+        }
+
+        // Load backup from localStorage if available
+        function loadBackupFromLocalStorage() {
+            try {
+                const backup = localStorage.getItem('deskDerbyBackup');
+                if (backup) {
+                    const backupData = JSON.parse(backup);
+                    if (backupData.gameState && backupData.gameState.bookingHistory) {
+                        // Only restore booking history if main data is empty
+                        if (gameState.bookingHistory.length === 0) {
+                            gameState.bookingHistory = backupData.gameState.bookingHistory;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Error loading backup:', error);
+            }
+        }
+
+        // Open Release Modal
+        function openReleaseModal() {
+            const bookedDesks = gameState.desks.filter(desk => !desk.available);
+            
+            if (bookedDesks.length === 0) {
+                alert('No desks are currently booked!');
+                return;
+            }
+            
+            const releaseSelection = document.getElementById('releaseSelection');
+            releaseSelection.innerHTML = '';
+            
+            bookedDesks.forEach((desk, originalIndex) => {
+                const actualIndex = gameState.desks.findIndex(d => d === desk);
+                const option = document.createElement('div');
+                option.className = 'avatar-option';
+                option.onclick = () => selectDeskForRelease(actualIndex, option);
+                
+                const bookingInfo = gameState.bookingHistory.find(booking => 
+                    booking.id === desk.bookingId && booking.isCorrect
+                );
+                
+                option.innerHTML = `
+                    <div><strong>Desk ${actualIndex + 1}</strong></div>
+                    <div>Booked by: ${desk.bookedBy}</div>
+                    <div>Day: ${desk.bookedDay}</div>
+                    ${bookingInfo ? `<div>Time: ${bookingInfo.bookingTime}</div>` : ''}
+                `;
+                
+                releaseSelection.appendChild(option);
+            });
+            
+            document.getElementById('releaseModal').style.display = 'block';
+        }
+
+        // Close Release Modal
+        function closeReleaseModal() {
+            document.getElementById('releaseModal').style.display = 'none';
+            selectedDeskForRelease = null;
+        }
+
+        let selectedDeskForRelease = null;
+
+        // Select Desk for Release
+        function selectDeskForRelease(deskIndex, element) {
+            document.querySelectorAll('#releaseSelection .avatar-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDeskForRelease = deskIndex;
+        }
+
+        // Confirm Release
+        function confirmRelease() {
+            if (selectedDeskForRelease === null) {
+                alert('Please select a desk to release!');
+                return;
+            }
+            
+            const desk = gameState.desks[selectedDeskForRelease];
+            const player = gameState.players.find(p => p.name === desk.bookedBy);
+            
+            if (confirm(`Are you sure you want to release Desk ${selectedDeskForRelease + 1} booked by ${desk.bookedBy}?`)) {
+                // Update booking history with release information
+                const releaseRecord = {
+                    id: `release_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                    originalBookingId: desk.bookingId,
+                    username: desk.bookedBy,
+                    date: new Date().toISOString(),
+                    gameDay: gameState.currentDay,
+                    seatNumber: selectedDeskForRelease + 1,
+                    action: 'RELEASE',
+                    releaseTime: new Date().toLocaleString(),
+                    releasedBy: 'Admin' // You could track who released it
+                };
+                
+                gameState.bookingHistory.push(releaseRecord);
+                
+                // Update player stats
+                if (player) {
+                    player.desksBooked = Math.max(0, player.desksBooked - 1);
+                    player.weeklyBookings[gameState.currentDay - 1] = false;
+                    updatePlayerTitle(player);
+                }
+                
+                // Reset desk
+                desk.available = true;
+                desk.bookedBy = null;
+                desk.bookedDay = null;
+                desk.bookingId = null;
+                
+                autoSaveToLocalStorage();
+                updateDisplay();
+                closeReleaseModal();
+                
+                alert(`✅ Desk ${selectedDeskForRelease + 1} has been released and is now available for booking!`);
+            }
+        }
+
+        // Enhanced Initialize Game
+        async function initGame() {
+            gameState.questions = lloydQuestions;
+            
+            // Try to load JSON data first, fallback to default if not available
+            const jsonLoaded = await loadJSONData();
+            
+            // Load backup from localStorage if JSON loading failed
+            if (!jsonLoaded) {
+                loadBackupFromLocalStorage();
+            }
+            
+            updateDisplay();
+            
+            // Show loading status
+            if (jsonLoaded) {
+                console.log('📊 Game initialized with JSON data');
+            } else {
+                console.log('🛠️ Game initialized with default data');
+            }
+        }
+
+        // Initialize game when page loads
+        window.onload = function() {
+            initGame().catch(error => {
+                console.error('Game initialization failed:', error);
+                generateDefaultData();
+                updateDisplay();
+            });
+        };
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const avatarModal = document.getElementById('avatarModal');
+            const releaseModal = document.getElementById('releaseModal');
+            
+            if (event.target === avatarModal) {
+                closeAvatarModal();
+            }
+            if (event.target === releaseModal) {
+                closeReleaseModal();
+            }
+        }
+    </script>
+</body>
+</html>
